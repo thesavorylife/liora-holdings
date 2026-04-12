@@ -1,6 +1,6 @@
-var _stripe = null;
-var _cardElement = null;
-var _currentPriceId = null;
+var_stripe = null;
+var_cardElement = null;
+var_currentPriceId = null;
 
 window.openModal = function(name, service, price, priceId) {
   _currentPriceId = priceId;
@@ -23,7 +23,7 @@ window.closeModal = function() {
 };
 
 function initStripe() {
-  _stripe = Stripe(window._stripeKey);
+  _stripe = Stripe(_stripeKey);
   var elements = _stripe.elements();
   _cardElement = elements.create('card');
   _cardElement.mount('#stripe-card-element');
