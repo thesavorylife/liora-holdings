@@ -91,7 +91,21 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.addEventListener('click', function(e) {
       if (e.target === this) {
         window.closeModal();
-      }
+      
+      }    
     });
   }
 });
+
+window.sendInquiry = function() {
+  var name = document.querySelector('.contact-form .form-input[placeholder="Your name"]').value.trim();
+  var org = document.querySelector('.contact-form .form-input[placeholder="Company or firm"]').value.trim();
+  var email = document.querySelector('.contact-form .form-input[placeholder="your email address"]').value.trim();
+  var message = document.querySelector('.contact-form .form-textarea').value.trim();
+  if (!name || !email || !message) {
+    alert('Please fill in your name, email and message.');
+    return;
+  }
+  window.location.href = 'mailto:info@lioraholdingsinc.com?subject=Inquiry from ' + encodeURIComponent(name) + '&body=' + encodeURIComponent('Name: ' + name + '\nOrganization: ' + org + '\nEmail: ' + email + '\n\nMessage:\n' + message);
+};
+
