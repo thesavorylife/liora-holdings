@@ -1,0 +1,13 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+
+[template.environment]
+  EMAIL_OBFUSCATION = "false"
+
+[build.processing]
+  skip_processing = true
