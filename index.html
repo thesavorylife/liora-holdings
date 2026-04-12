@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="netlify-no-email-obfuscation" content="true" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Liora Holdings Inc</title>
@@ -11,7 +10,7 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{--gold:#C9A96E;--gold-light:#DEC08E;--ivory:#F8F4EE;--ivory-dark:#EDE6D8;--charcoal:#1E1C19;--charcoal-mid:#3A3730;--warm-gray:#7A736A;--rule:rgba(201,169,110,0.25)}
     html{scroll-behavior:smooth}
-    body{background:var(--ivory);color:var(--charcoal);font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;overflow-x:hidden}
+    body{background:var(--ivory);color:var(--charcoal);font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;overflow-x:hidden}
     nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 60px;background:rgba(248,244,238,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
     .nav-wordmark{font-weight:300;font-size:15px;letter-spacing:0.22em;text-transform:uppercase;color:var(--charcoal);text-decoration:none}
     .nav-wordmark span{color:var(--gold)}
@@ -19,7 +18,7 @@
     .nav-links a{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--warm-gray);transition:color 0.3s}
     .nav-links a:hover{color:var(--gold)}
     .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 40px 80px;position:relative;background:radial-gradient(ellipse 60% 50% at 50% 60%,rgba(201,169,110,0.07) 0%,transparent 70%),var(--ivory);overflow:hidden}
-    .hero::before{content:'';position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(201,169,110,0.06) 79px,rgba(201,169,110,0.06) 80px),repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(201,169,110,0.06) 79px,rgba(201,169,110,0.06) 80px);pointer-events:none}
+    .hero::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(201,169,110,0.06) 79px,rgba(201,169,110,0.06) 80px),repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(201,169,110,0.06) 79px,rgba(201,169,110,0.06) 80px);pointer-events:none}
     .hero-eyebrow{font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:32px;opacity:0;animation:fadeUp 0.9s ease 0.2s forwards}
     .hero-title{font-weight:300;font-size:clamp(48px,7vw,88px);line-height:1.05;color:var(--charcoal);opacity:0;animation:fadeUp 1s ease 0.4s forwards}
     .hero-title em{font-style:italic;color:var(--gold)}
@@ -54,15 +53,16 @@
     .billing-text{font-size:15px;line-height:1.85;color:var(--charcoal-mid);font-weight:300;margin-bottom:8px}
     .billing-note{font-size:13px;font-style:italic;color:var(--warm-gray);line-height:1.7}
     #retainers{background:var(--ivory);border-top:1px solid var(--rule);padding:100px 60px 120px;position:relative}
-    #retainers::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:60px;background:linear-gradient(to bottom,transparent,var(--gold))}
+    #retainers::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:60px;background:linear-gradient(to bottom,transparent,var(--gold))}
     .r-eyebrow{text-align:center;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
     .r-title{font-weight:300;font-size:clamp(30px,4vw,48px);text-align:center;color:var(--charcoal);line-height:1.2;margin-bottom:16px}
     .r-title em{font-style:italic;color:var(--gold)}
     .r-sub{text-align:center;font-size:15px;font-weight:300;font-style:italic;color:var(--warm-gray);max-width:540px;margin:0 auto 64px;line-height:1.75}
-    .r-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;max-width:1100px;margin:0 auto 80px;border:1px solid var(--rule)}
+    .r-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;max-width:1200px;margin:0 auto 40px;border:1px solid var(--rule)}
     .r-card{background:var(--ivory);padding:48px 36px 44px;position:relative;display:flex;flex-direction:column;transition:background 0.3s;border-right:1px solid var(--rule)}
     .r-card:last-child{border-right:none}
     .r-card.featured{background:var(--charcoal)}
+    .r-card.insider{background:var(--ivory-dark);border-left:2px solid var(--gold)}
     .r-card:hover:not(.featured){background:#fff}
     .c-tier{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:300}
     .r-card.featured .c-tier{color:var(--gold-light)}
@@ -78,22 +78,25 @@
     .r-card.featured .c-period{color:rgba(248,244,238,0.4)}
     .c-divider{width:32px;height:1px;background:var(--rule);margin-bottom:28px}
     .r-card.featured .c-divider{background:rgba(248,244,238,0.12)}
+    .c-tagline{font-size:13px;font-style:italic;color:var(--warm-gray);font-weight:300;margin-bottom:20px;line-height:1.6}
     .c-features{list-style:none;flex:1;margin-bottom:36px}
     .c-features li{font-size:13.5px;font-weight:300;color:var(--charcoal-mid);padding:8px 0;border-bottom:1px solid var(--rule);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
     .r-card.featured .c-features li{color:rgba(248,244,238,0.72);border-bottom-color:rgba(248,244,238,0.08)}
-    .c-features li::before{content:'--';color:var(--gold);font-size:11px;flex-shrink:0;margin-top:3px}
+    .c-features li::before{content:"--";color:var(--gold);font-size:11px;flex-shrink:0;margin-top:3px}
     .r-card.featured .c-features li::before{color:var(--gold-light)}
     .c-badge{position:absolute;top:20px;right:20px;font-size:9px;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);padding:4px 10px}
-    .c-btn{display:block;width:100%;padding:15px 24px;font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;text-align:center;cursor:pointer;border:1px solid var(--charcoal);background:transparent;color:var(--charcoal);transition:background 0.3s,color 0.3s}
+    .c-btn{display:block;width:100%;padding:15px 24px;font-family:"Cormorant Garamond",serif;font-size:12px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;text-align:center;cursor:pointer;border:1px solid var(--charcoal);background:transparent;color:var(--charcoal);transition:background 0.3s,color 0.3s}
     .c-btn:hover{background:var(--charcoal);color:var(--ivory)}
     .r-card.featured .c-btn{border-color:var(--gold);color:var(--gold)}
     .r-card.featured .c-btn:hover{background:var(--gold);color:var(--charcoal)}
-    .r-trust{max-width:1100px;margin:0 auto;padding:28px 36px;border:1px solid var(--rule);background:#fff;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:28px}
+    .r-card.insider .c-btn{border-color:var(--gold);color:var(--gold)}
+    .r-card.insider .c-btn:hover{background:var(--gold);color:var(--charcoal)}
+    .r-trust{max-width:1200px;margin:0 auto 16px;padding:28px 36px;border:1px solid var(--rule);background:#fff;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:28px}
     .t-item{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:300;color:var(--warm-gray);letter-spacing:0.05em}
     .t-item svg{width:16px;height:16px;flex-shrink:0;opacity:0.55}
     .t-sep{width:1px;height:18px;background:var(--rule)}
-    .r-fine{text-align:center;font-size:12px;font-weight:300;font-style:italic;color:var(--warm-gray);max-width:700px;margin:36px auto 0;line-height:1.8}
-    .r-fine a{color:var(--gold);text-decoration:none}
+    .r-cards-box{max-width:1200px;margin:0 auto 16px;padding:20px 36px;border:1px solid var(--rule);border-top:none;background:#fff;display:flex;align-items:center;justify-content:center;gap:12px}
+    .r-fine{text-align:center;font-size:12px;font-weight:300;font-style:italic;color:var(--warm-gray);max-width:700px;margin:20px auto 0;line-height:1.8}
     .modal-overlay{display:none;position:fixed;inset:0;background:rgba(30,28,25,0.78);z-index:1000;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px)}
     .modal-overlay.active{display:flex}
     .modal-box{background:var(--ivory);max-width:520px;width:100%;padding:52px 44px 44px;position:relative;animation:modalIn 0.3s ease}
@@ -105,13 +108,13 @@
     .m-price{font-size:12px;font-weight:300;color:var(--warm-gray);margin-bottom:32px;font-style:italic}
     .m-group{margin-bottom:18px}
     .m-label{display:block;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:7px;font-weight:300}
-    .m-input{width:100%;padding:13px 14px;border:1px solid var(--rule);background:var(--ivory-dark);font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:300;color:var(--charcoal);outline:none;transition:border-color 0.2s}
+    .m-input{width:100%;padding:13px 14px;border:1px solid var(--rule);background:var(--ivory-dark);font-family:"Cormorant Garamond",serif;font-size:15px;font-weight:300;color:var(--charcoal);outline:none;transition:border-color 0.2s}
     .m-input:focus{border-color:var(--gold)}
     .m-input::placeholder{color:rgba(122,114,106,0.5)}
     #stripe-card-element{width:100%;padding:13px 14px;border:1px solid var(--rule);background:var(--ivory-dark);transition:border-color 0.2s}
     #stripe-card-element.focused{border-color:var(--gold)}
     .stripe-error{font-size:12px;color:#b94040;margin-top:8px;display:none;font-style:italic}
-    .m-submit{display:block;width:100%;margin-top:28px;padding:16px;font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;background:var(--charcoal);color:var(--ivory);border:none;cursor:pointer;transition:background 0.25s}
+    .m-submit{display:block;width:100%;margin-top:28px;padding:16px;font-family:"Cormorant Garamond",serif;font-size:13px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;background:var(--charcoal);color:var(--ivory);border:none;cursor:pointer;transition:background 0.25s}
     .m-submit:hover{background:#2e2b27}
     .m-submit:disabled{opacity:0.6;cursor:not-allowed}
     .m-secure{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:16px;font-size:11px;color:var(--warm-gray);font-weight:300}
@@ -131,11 +134,11 @@
     .contact-form{display:flex;flex-direction:column;gap:20px}
     .form-field{display:flex;flex-direction:column;gap:8px}
     .form-label{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold)}
-    .form-input,.form-textarea{background:rgba(248,244,238,0.05);border:1px solid rgba(201,169,110,0.25);padding:14px 16px;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:300;color:var(--ivory);outline:none;transition:border-color 0.3s;width:100%}
+    .form-input,.form-textarea{background:rgba(248,244,238,0.05);border:1px solid rgba(201,169,110,0.25);padding:14px 16px;font-family:"Cormorant Garamond",serif;font-size:15px;font-weight:300;color:var(--ivory);outline:none;transition:border-color 0.3s;width:100%}
     .form-input::placeholder,.form-textarea::placeholder{color:rgba(248,244,238,0.3)}
     .form-input:focus,.form-textarea:focus{border-color:var(--gold)}
     .form-textarea{resize:vertical;min-height:120px}
-    .btn-gold{display:inline-block;padding:15px 40px;background:var(--gold);border:none;font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--charcoal);cursor:pointer;transition:background 0.3s;align-self:flex-start}
+    .btn-gold{display:inline-block;padding:15px 40px;background:var(--gold);border:none;font-family:"Cormorant Garamond",serif;font-size:12px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--charcoal);cursor:pointer;transition:background 0.3s;align-self:flex-start}
     .btn-gold:hover{background:var(--gold-light)}
     footer{background:#141210;padding:36px 60px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(201,169,110,0.15)}
     .footer-left{font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(248,244,238,0.3)}
@@ -143,14 +146,6 @@
     .footer-links a{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(248,244,238,0.3);text-decoration:none;transition:color 0.3s}
     .footer-links a:hover{color:var(--gold)}
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    
-    .r-card.insider{background:var(--ivory-dark);border:1px solid var(--gold);border-right:none}
-    .r-card.insider:hover{background:#f0e8d8}
-    .r-card.insider .c-tier{color:var(--gold)}
-    .r-card.insider .c-name{color:var(--charcoal)}
-    .r-card.insider .c-amount{color:var(--gold)}
-    .r-card.insider .c-btn{border-color:var(--gold);color:var(--gold)}
-    .r-card.insider .c-btn:hover{background:var(--gold);color:var(--charcoal)}
     @media(max-width:768px){nav{padding:18px 24px}.nav-links{display:none}section{padding:70px 24px}#retainers{padding:70px 24px 100px}.three-grid,.contact-grid{grid-template-columns:1fr;gap:40px}.r-cards{grid-template-columns:1fr}.r-card{border-right:none;border-bottom:1px solid var(--rule)}.r-card:last-child{border-bottom:none}.r-trust{flex-direction:column;gap:18px}.t-sep{display:none}footer{flex-direction:column;gap:20px;text-align:center;padding:32px 24px}.modal-box{padding:40px 28px 36px}}
   </style>
 </head>
@@ -218,7 +213,7 @@
     </div>
     <div class="billing-box">
       <p class="billing-label">Service &amp; Billing Policies</p>
-      <p class="billing-text">All consulting engagements are scoped and billed individually in <strong>United States Dollars (USD)</strong>. Refunds are available for services not yet commenced. Partially completed engagements are refunded on a prorated basis. Completed deliverables are non-refundable. Cancellations must be submitted in writing to <a href="/cdn-cgi/l/email-protection#41282f272e012d282e3320292e2d25282f2632282f226f222e2c" style="color:var(--gold);text-decoration:none;"><span class="__cf_email__" data-cfemail="83eaede5ecc3efeaecf1e2ebecefe7eaede4f0eaede0ade0ecee">[email&#160;protected]</span></a>.</p>
+      <p class="billing-text">All consulting engagements are scoped and billed individually in <strong>United States Dollars (USD)</strong>. Refunds are available for services not yet commenced. Partially completed engagements are refunded on a prorated basis. Completed deliverables are non-refundable. Cancellations must be submitted in writing.</p>
       <p class="billing-note">Liora Holdings Inc does not provide licensed legal or financial advice. Consulting services are advisory in nature.</p>
     </div>
   </div>
@@ -231,7 +226,7 @@
     <div class="r-card">
       <p class="c-tier">Tier 01</p><h3 class="c-name">Foundation Retainer</h3><p class="c-service">Business Consulting</p>
       <div class="c-price"><span class="c-currency">$</span><span class="c-amount">1,500</span></div>
-      <p class="c-period">per month &middot; auto-renews &middot; cancel anytime in writing</p>
+      <p class="c-period">per month &middot; auto-renews &middot; cancel anytime</p>
       <div class="c-divider"></div>
       <ul class="c-features">
         <li>Operational clarity and process refinement</li>
@@ -240,13 +235,13 @@
         <li>Email support between sessions</li>
         <li>Billed monthly in USD via Stripe</li>
       </ul>
-      <button class="c-btn" onclick="openModal('Foundation Retainer','Business Consulting','$1,500/month','price_REPLACE_FOUNDATION')">Begin Engagement</button>
+      <button class="c-btn" onclick="window.openModal('Foundation Retainer','Business Consulting','$1,500/month','price_REPLACE_FOUNDATION')">Begin Engagement</button>
     </div>
     <div class="r-card featured">
       <div class="c-badge">Most Selected</div>
       <p class="c-tier">Tier 02</p><h3 class="c-name">Strategy Retainer</h3><p class="c-service">Corporate Strategy</p>
       <div class="c-price"><span class="c-currency">$</span><span class="c-amount">3,500</span></div>
-      <p class="c-period">per month &middot; auto-renews &middot; cancel anytime in writing</p>
+      <p class="c-period">per month &middot; auto-renews &middot; cancel anytime</p>
       <div class="c-divider"></div>
       <ul class="c-features">
         <li>High-level strategic advisory and positioning</li>
@@ -256,12 +251,12 @@
         <li>Priority email and async advisory</li>
         <li>Billed monthly in USD via Stripe</li>
       </ul>
-      <button class="c-btn" onclick="openModal('Strategy Retainer','Corporate Strategy','$3,500/month','price_REPLACE_STRATEGY')">Begin Engagement</button>
+      <button class="c-btn" onclick="window.openModal('Strategy Retainer','Corporate Strategy','$3,500/month','price_REPLACE_STRATEGY')">Begin Engagement</button>
     </div>
     <div class="r-card">
       <p class="c-tier">Tier 03</p><h3 class="c-name">Advisory Retainer</h3><p class="c-service">Structural Advisory</p>
       <div class="c-price"><span class="c-currency">$</span><span class="c-amount">6,500</span></div>
-      <p class="c-period">per month &middot; auto-renews &middot; cancel anytime in writing</p>
+      <p class="c-period">per month &middot; auto-renews &middot; cancel anytime</p>
       <div class="c-divider"></div>
       <ul class="c-features">
         <li>Full corporate architecture advisory</li>
@@ -271,16 +266,14 @@
         <li>Unlimited async support</li>
         <li>Billed monthly in USD via Stripe</li>
       </ul>
-      <button class="c-btn" onclick="openModal('Advisory Retainer','Structural Advisory','$6,500/month','price_REPLACE_ADVISORY')">Begin Engagement</button>
+      <button class="c-btn" onclick="window.openModal('Advisory Retainer','Structural Advisory','$6,500/month','price_REPLACE_ADVISORY')">Begin Engagement</button>
     </div>
     <div class="r-card insider">
-      <p class="c-tier">Membership</p>
-      <h3 class="c-name">The Liora Insider</h3>
-      <p class="c-service">Strategy Insights &amp; Resource Library</p>
+      <p class="c-tier">Membership</p><h3 class="c-name">The Liora Insider</h3><p class="c-service">Strategy Insights &amp; Resource Library</p>
       <div class="c-price"><span class="c-currency">$</span><span class="c-amount">100</span></div>
-      <p class="c-period">per month &middot; auto-renews &middot; cancel anytime in writing</p>
+      <p class="c-period">per month &middot; auto-renews &middot; cancel anytime</p>
       <div class="c-divider"></div>
-      <p style="font-size:13px;font-style:italic;color:var(--warm-gray);font-weight:300;margin-bottom:20px;line-height:1.6;">Strategy insights for the purposeful enterprise.</p>
+      <p class="c-tagline">Strategy insights for the purposeful enterprise.</p>
       <ul class="c-features">
         <li>Monthly business strategy PDF report</li>
         <li>Members-only resource library access</li>
@@ -288,7 +281,7 @@
         <li>Strategy worksheets and templates</li>
         <li>Billed monthly in USD via Stripe</li>
       </ul>
-      <button class="c-btn" onclick="openModal('The Liora Insider','Membership &amp; Strategy Insights','$100/month','price_REPLACE_INSIDER')">Subscribe Now</button>
+      <button class="c-btn" onclick="window.openModal('The Liora Insider','Membership','$100/month','price_REPLACE_INSIDER')">Subscribe Now</button>
     </div>
   </div>
   <div class="r-trust">
@@ -296,19 +289,18 @@
     <div class="t-sep"></div>
     <div class="t-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>PCI DSS Compliant</div>
     <div class="t-sep"></div>
-    <div class="t-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Auto-renews monthly &middot; Cancel anytime in writing</div>
+    <div class="t-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Auto-renews monthly</div>
     <div class="t-sep"></div>
     <div class="t-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>All fees billed in USD</div>
   </div>
-  
-  <div style="max-width:1100px;margin:16px auto 0;padding:20px 36px;border:1px solid var(--rule);border-top:none;background:#fff;display:flex;align-items:center;justify-content:center;gap:12px;">
+  <div class="r-cards-box">
     <span style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--warm-gray);margin-right:8px;">Accepted Cards</span>
     <svg width="42" height="28" viewBox="0 0 42 28" style="border:1px solid #e0e0e0;border-radius:4px;background:#fff;padding:3px 5px;"><text x="3" y="19" font-family="Arial" font-weight="900" font-size="13" fill="#1a1f71">VISA</text></svg>
     <svg width="42" height="28" viewBox="0 0 42 28" style="border:1px solid #e0e0e0;border-radius:4px;background:#fff;"><circle cx="16" cy="14" r="9" fill="#EB001B"/><circle cx="26" cy="14" r="9" fill="#F79E1B"/><path d="M21 7.5a9 9 0 0 1 0 13A9 9 0 0 1 21 7.5z" fill="#FF5F00"/></svg>
     <svg width="42" height="28" viewBox="0 0 42 28" style="border:1px solid #e0e0e0;border-radius:4px;background:#016FD0;padding:3px 5px;"><text x="3" y="19" font-family="Arial" font-weight="bold" font-size="10" fill="#fff">AMEX</text></svg>
     <svg width="42" height="28" viewBox="0 0 42 28" style="border:1px solid #e0e0e0;border-radius:4px;background:#fff;padding:3px 5px;"><text x="2" y="12" font-family="Arial" font-weight="bold" font-size="7" fill="#231F20">DISCOVER</text><circle cx="32" cy="14" r="7" fill="#F76F20"/></svg>
   </div>
-  <p class="r-fine">All consulting engagements are advisory in nature. Liora Holdings Inc does not provide licensed legal or financial advice. Refunds are available for services not yet commenced. Partially completed engagements are refunded on a prorated basis. Completed deliverables are non-refundable. Cancellations must be submitted in writing to <a href="/cdn-cgi/l/email-protection#b0d9ded6dff0dcd9dfc2d1d8dfdcd4d9ded7c3d9ded39ed3dfdd"><span class="__cf_email__" data-cfemail="7e171018113e1217110c1f1611121a1710190d17101d501d1113">[email&#160;protected]</span></a>.</p>
+  <p class="r-fine">All consulting engagements are advisory in nature. Liora Holdings Inc does not provide licensed legal or financial advice. Refunds available for services not yet commenced. Partially completed engagements refunded on a prorated basis. Completed deliverables are non-refundable. Cancel in writing to: info [at] lioraholdingsinc [dot] com</p>
 </section>
 <section id="contact">
   <div class="section-inner">
@@ -320,17 +312,17 @@
         <p class="contact-intro">Liora Holdings Inc welcomes inquiries from professional counterparties, legal and financial advisors, and institutional partners.</p>
         <div style="margin-top:40px;font-size:14px;color:rgba(248,244,238,0.5);line-height:2;">
           <p style="color:var(--gold);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;">Principal Office</p>
-          <p>211 W 19th Street, Suite 103-1081A</p><p>Cheyenne, WY 82001</p>
-          <p style="margin-top:16px;"><a href="/cdn-cgi/l/email-protection#cba2a5ada48ba7a2a4b9aaa3a4a7afa2a5acb8a2a5a8e5a8a4a6" style="color:rgba(248,244,238,0.5);text-decoration:none;"><span class="__cf_email__" data-cfemail="a4cdcac2cbe4c8cdcbd6c5cccbc8c0cdcac3d7cdcac78ac7cbc9">[email&#160;protected]</span></a></p>
+          <p>211 W 19th Street, Suite 103-1081A</p>
+          <p>Cheyenne, WY 82001</p>
+          <p style="margin-top:16px;">info [at] lioraholdingsinc [dot] com</p>
           <p>(833) 546-7226</p>
         </div>
         <div style="margin-top:24px;font-size:12px;color:rgba(248,244,238,0.35);line-height:1.7;font-style:italic;">Liora Holdings Inc is a privately held intermediate holding company. It does not provide legal, financial, or investment advice.</div>
-        <div style="margin-top:32px;"><a href="LioraHoldingInc_PrivacyPolicy.pdf" style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(201,169,110,0.6);text-decoration:none;border-bottom:1px solid rgba(201,169,110,0.25);padding-bottom:2px;">Privacy Policy</a></div>
       </div>
       <div class="contact-form">
         <div class="form-field"><label class="form-label">Full Name</label><input type="text" class="form-input" placeholder="Your name" /></div>
         <div class="form-field"><label class="form-label">Organization</label><input type="text" class="form-input" placeholder="Company or firm" /></div>
-        <div class="form-field"><label class="form-label">Email Address</label><input type="email" class="form-input" placeholder="your@email.com" /></div>
+        <div class="form-field"><label class="form-label">Email Address</label><input type="text" class="form-input" placeholder="your email address" /></div>
         <div class="form-field"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Purpose of inquiry..."></textarea></div>
         <button class="btn-gold">Send Inquiry</button>
       </div>
@@ -339,73 +331,33 @@
 </section>
 <footer>
   <span class="footer-left">&copy; 2026 Liora Holdings Inc &middot; All Rights Reserved</span>
-  <nav class="footer-links"><a href="LioraHoldingInc_PrivacyPolicy.pdf">Privacy Policy</a><a href="#contact">Contact</a></nav>
+  <nav class="footer-links"><a href="#contact">Privacy Policy</a><a href="#contact">Contact</a></nav>
 </footer>
 <div class="modal-overlay" id="checkoutModal">
   <div class="modal-box">
-    <button class="m-close" onclick="closeModal()">&times;</button>
+    <button class="m-close" onclick="window.closeModal()">&times;</button>
     <div id="formView">
       <p class="m-eyebrow" id="m-eyebrow">Retainer Engagement</p>
       <h3 class="m-title" id="m-title">Foundation Retainer</h3>
       <p class="m-price" id="m-price">$1,500 / month</p>
       <div class="m-group"><label class="m-label">Full Name</label><input class="m-input" type="text" id="client-name" placeholder="Your full legal name" /></div>
-      <div class="m-group"><label class="m-label">Organization</label><input class="m-input" type="text" id="client-org" placeholder="Company or organization (if applicable)" /></div>
-      <div class="m-group"><label class="m-label">Email Address</label><input class="m-input" type="email" id="client-email" placeholder="you@yourcompany.com" /></div>
+      <div class="m-group"><label class="m-label">Organization</label><input class="m-input" type="text" id="client-org" placeholder="Company or organization" /></div>
+      <div class="m-group"><label class="m-label">Email Address</label><input class="m-input" type="text" id="client-email" placeholder="your email address" /></div>
       <div class="m-group"><label class="m-label">Card Details</label><div id="stripe-card-element"></div><p class="stripe-error" id="card-error"></p></div>
-      <button class="m-submit" id="submit-btn" onclick="handleSubmit()"><span id="submit-label">Confirm &amp; Begin Retainer</span></button>
+      <button class="m-submit" id="submit-btn" onclick="window.handleSubmit()"><span id="submit-label">Confirm &amp; Begin Retainer</span></button>
       <div class="m-secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Secured by Stripe &middot; PCI DSS Compliant</div>
-      <p class="m-disclaimer">By confirming, you authorize Liora Holdings Inc to charge your card monthly until cancelled in writing to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="177e797178577b7e7865767f787b737e7970647e79743974787a">[email&#160;protected]</a>.</p>
+      <p class="m-disclaimer">By confirming, you authorize Liora Holdings Inc to charge your card monthly until cancelled in writing.</p>
     </div>
     <div id="successView" style="display:none;">
       <div class="m-success">
         <div class="s-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg></div>
         <h3 class="s-title">Engagement Confirmed</h3>
-        <p class="s-text">Thank you. A confirmation has been sent to your email.<br/>A member of our team will be in touch within one business day.</p>
+        <p class="s-text">Thank you. A confirmation has been sent to your email. A member of our team will be in touch within one business day.</p>
       </div>
     </div>
   </div>
 </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const STRIPE_PUBLISHABLE_KEY = 'pk_test_REPLACE_WITH_YOUR_PUBLISHABLE_KEY';
-  const BACKEND_URL = '/.netlify/functions/create-subscription';
-  let stripe, cardElement, currentPriceId;
-  function initStripe() {
-    stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-    const elements = stripe.elements();
-    cardElement = elements.create('card', { style: { base: { fontFamily: "'Cormorant Garamond',serif", fontSize: '15px', fontWeight: '300', color: '#1E1C19', '::placeholder': { color: 'rgba(122,114,106,0.5)' } }, invalid: { color: '#b94040' } } });
-    cardElement.mount('#stripe-card-element');
-    cardElement.on('focus', () => document.getElementById('stripe-card-element').classList.add('focused'));
-    cardElement.on('blur', () => document.getElementById('stripe-card-element').classList.remove('focused'));
-    cardElement.on('change', (e) => { const err = document.getElementById('card-error'); err.textContent = e.error ? e.error.message : ''; err.style.display = e.error ? 'block' : 'none'; });
-  }
-  window.openModal = function(name, service, price, priceId) {
-    currentPriceId = priceId;
-    document.getElementById('m-eyebrow').textContent = service;
-    document.getElementById('m-title').textContent = name;
-    document.getElementById('m-price').textContent = price + ' - auto-renews monthly - cancel anytime in writing';
-    document.getElementById('formView').style.display = 'block';
-    document.getElementById('successView').style.display = 'none';
-    document.getElementById('card-error').style.display = 'none';
-    document.getElementById('submit-btn').disabled = false;
-    document.getElementById('submit-label').textContent = 'Confirm & Begin Retainer';
-    document.getElementById('checkoutModal').classList.add('active');
-    document.body.style.overflow = 'hidden';
-    if (!stripe) initStripe();
-  }
-  window.closeModal = function() { document.getElementById('checkoutModal').classList.remove('active'); document.body.style.overflow = ''; }
-  document.getElementById('checkoutModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-  window.handleSubmit = async function() {
-    const name = document.getElementById('client-name').value.trim();
-    const email = document.getElementById('client-email').value.trim();
-    const org = document.getElementById('client-org').value.trim();
-    const err = document.getElementById('card-error');
-    const btn = document.getElementById('submit-btn');
-    const label = document.getElementById('submit-label');
-    if (!name || !email) { err.textContent = 'Please enter your full name and email address.'; err.style.display = 'block'; return; }
-    btn.disabled = true; label.textContent = 'Processing...'; err.style.display = 'none';
-    try {
-      const { paymentMethod, error: pmError } = await stripe.createPaymentMethod({ type: 'card', card: cardElement, billing_details: { name, email } });
-      if (pmError) { err.textContent = pmError.message; err.style.display = 'block'; btn.disabled = false; label.textContent = 'Confirm & Begin Retainer'; return; }
-      const response = await fetch(BACKEND_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ paymentMethodId: paymentMethod.id, priceId: currentPriceId, email, name, organization: org }) });
-      const data = await response.json();
-      if (data.error) { err.textContent = data.error; err.style.display = 'block'; btn.disabled = false; label.textCon
+<script>window._stripeKey = "pk_test_REPLACE_WITH_YOUR_PUBLISHABLE_KEY";</script>
+<script src="/app.js"></script>
+</body>
+</html>
