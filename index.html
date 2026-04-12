@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+c<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -239,7 +239,7 @@
         <li>Email support between sessions</li>
         <li>Billed monthly in USD via Stripe</li>
       </ul>
-      <button class="c-btn" onclick="openModal('Foundation Retainer','Business Consulting','$1,500/month','price_1TKsYFGre3T6h3iKFtWDT8wh')">Begin Engagement</button>
+      <button class="c-btn" onclick="openModal('Foundation Retainer','Business Consulting','$1,500/month','price_REPLACE_FOUNDATION')">Begin Engagement</button>
     </div>
     <div class="r-card featured">
       <div class="c-badge">Most Selected</div>
@@ -255,7 +255,7 @@
         <li>Priority email and async advisory</li>
         <li>Billed monthly in USD via Stripe</li>
       </ul>
-      <button class="c-btn" onclick="openModal('Strategy Retainer','Corporate Strategy','$3,500/month','price_1TKsbeGre3T6h3iKpmvqnCdn')">Begin Engagement</button>
+      <button class="c-btn" onclick="openModal('Strategy Retainer','Corporate Strategy','$3,500/month','price_REPLACE_STRATEGY')">Begin Engagement</button>
     </div>
     <div class="r-card">
       <p class="c-tier">Tier 03</p><h3 class="c-name">Advisory Retainer</h3><p class="c-service">Structural Advisory</p>
@@ -270,7 +270,7 @@
         <li>Unlimited async support</li>
         <li>Billed monthly in USD via Stripe</li>
       </ul>
-      <button class="c-btn" onclick="openModal('Advisory Retainer','Structural Advisory','$6,500/month','price_1TKsdiGre3T6h3iK9ffoUvYj')">Begin Engagement</button>
+      <button class="c-btn" onclick="openModal('Advisory Retainer','Structural Advisory','$6,500/month','price_REPLACE_ADVISORY')">Begin Engagement</button>
     </div>
     <div class="r-card insider">
       <p class="c-tier">Membership</p>
@@ -287,7 +287,7 @@
         <li>Strategy worksheets and templates</li>
         <li>Billed monthly in USD via Stripe</li>
       </ul>
-      <button class="c-btn" onclick="openModal('The Liora Insider','Membership &amp; Strategy Insights','$100/month','price_1TKsjqGre3T6h3iKcbgEUaU4')">Subscribe Now</button>
+      <button class="c-btn" onclick="openModal('The Liora Insider','Membership &amp; Strategy Insights','$100/month','price_REPLACE_INSIDER')">Subscribe Now</button>
     </div>
   </div>
   <div class="r-trust">
@@ -365,7 +365,7 @@
   </div>
 </div>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const STRIPE_PUBLISHABLE_KEY = 'pk_test_51TKrFYGre3T6h3iKDrgkTA60DWqCOGG7ljtdBdVxUd7geidegFM9gmBIuqcas7cevvRAql8X4QQQidMHVDXhKp3x00drFGg7af';
+  const STRIPE_PUBLISHABLE_KEY = 'pk_test_REPLACE_WITH_YOUR_PUBLISHABLE_KEY';
   const BACKEND_URL = '/.netlify/functions/create-subscription';
   let stripe, cardElement, currentPriceId;
   function initStripe() {
@@ -377,7 +377,7 @@
     cardElement.on('blur', () => document.getElementById('stripe-card-element').classList.remove('focused'));
     cardElement.on('change', (e) => { const err = document.getElementById('card-error'); err.textContent = e.error ? e.error.message : ''; err.style.display = e.error ? 'block' : 'none'; });
   }
-  function openModal(name, service, price, priceId) {
+  window.openModal = function(name, service, price, priceId) {
     currentPriceId = priceId;
     document.getElementById('m-eyebrow').textContent = service;
     document.getElementById('m-title').textContent = name;
@@ -391,9 +391,9 @@
     document.body.style.overflow = 'hidden';
     if (!stripe) initStripe();
   }
-  function closeModal() { document.getElementById('checkoutModal').classList.remove('active'); document.body.style.overflow = ''; }
+  window.closeModal = function() { document.getElementById('checkoutModal').classList.remove('active'); document.body.style.overflow = ''; }
   document.getElementById('checkoutModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
-  async function handleSubmit() {
+  window.handleSubmit = async function() {
     const name = document.getElementById('client-name').value.trim();
     const email = document.getElementById('client-email').value.trim();
     const org = document.getElementById('client-org').value.trim();
