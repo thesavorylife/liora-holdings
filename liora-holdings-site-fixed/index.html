@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <title>Liora Holdings Inc</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet" />
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--gold:#C9A96E;--gold-light:#DEC08E;--ivory:#F8F4EE;--ivory-dark:#EDE6D8;--charcoal:#1E1C19;--charcoal-mid:#3A3730;--warm-gray:#7A736A;--rule:rgba(201,169,110,0.25)}
+    html{scroll-behavior:smooth}
+    body{background:var(--ivory);color:var(--charcoal);font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px 60px;background:rgba(248,244,238,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+    .nav-wordmark{font-weight:300;font-size:15px;letter-spacing:0.22em;text-transform:uppercase;color:var(--charcoal);text-decoration:none}
+    .nav-wordmark span{color:var(--gold)}
+    .nav-links{display:flex;gap:40px;list-style:none}
+    .nav-links a{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:var(--warm-gray);transition:color 0.3s}
+    .nav-links a:hover{color:var(--gold)}
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 40px 80px;position:relative;background:radial-gradient(ellipse 60% 50% at 50% 60%,rgba(201,169,110,0.07) 0%,transparent 70%),var(--ivory);overflow:hidden}
+    .hero::before{content:"";position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(201,169,110,0.06) 79px,rgba(201,169,110,0.06) 80px),repeating-linear-gradient(90deg,transparent,transparent 79px,rgba(201,169,110,0.06) 79px,rgba(201,169,110,0.06) 80px);pointer-events:none}
+    .hero-eyebrow{font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:32px;opacity:0;animation:fadeUp 0.9s ease 0.2s forwards}
+    .hero-title{font-weight:300;font-size:clamp(48px,7vw,88px);line-height:1.05;color:var(--charcoal);opacity:0;animation:fadeUp 1s ease 0.4s forwards}
+    .hero-title em{font-style:italic;color:var(--gold)}
+    .hero-rule{width:60px;height:1px;background:var(--gold);margin:40px auto;opacity:0;animation:fadeUp 0.8s ease 0.7s forwards}
+    .hero-sub{font-size:clamp(15px,2vw,18px);font-weight:300;font-style:italic;color:var(--warm-gray);max-width:480px;line-height:1.75;opacity:0;animation:fadeUp 0.9s ease 0.9s forwards}
+    .hero-cta{margin-top:44px;opacity:0;animation:fadeUp 0.8s ease 1.1s forwards}
+    .btn-outline{display:inline-block;padding:14px 38px;border:1px solid var(--gold);font-size:12px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;color:var(--charcoal);transition:background 0.3s,color 0.3s}
+    .btn-outline:hover{background:var(--gold);color:var(--ivory)}
+    section{padding:100px 60px}
+    .section-inner{max-width:1000px;margin:0 auto}
+    .section-label{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+    .section-title{font-weight:300;font-size:clamp(30px,4vw,48px);line-height:1.2;color:var(--charcoal);margin-bottom:32px}
+    .section-title em{font-style:italic;color:var(--gold)}
+    hr.gold-rule{border:none;border-top:1px solid var(--rule);margin-bottom:40px}
+    #about{background:var(--ivory);border-top:1px solid var(--rule)}
+    .about-body{font-size:17px;line-height:1.85;color:var(--charcoal-mid);font-weight:300}
+    .about-body p+p{margin-top:20px}
+    .vision-blocks{margin-top:48px;display:flex;flex-direction:column;gap:32px}
+    .vision-block{padding-left:24px;border-left:3px solid var(--gold)}
+    .vision-block-label{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+    .vision-block-text{font-size:17px;line-height:1.8;color:var(--charcoal-mid);font-weight:300}
+    #purpose{background:var(--ivory-dark);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+    #services{background:var(--ivory-dark);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+    .three-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:48px}
+    .grid-item{background:var(--ivory);padding:48px 36px;transition:background 0.3s}
+    .grid-item:hover{background:#fff}
+    .grid-num{font-size:11px;letter-spacing:0.25em;color:var(--gold);margin-bottom:20px}
+    .grid-title{font-size:22px;font-weight:400;color:var(--charcoal);margin-bottom:16px;line-height:1.3}
+    .grid-body{font-size:14px;line-height:1.8;color:var(--warm-gray);font-weight:300}
+    .billing-box{margin-top:48px;padding:32px 36px;background:var(--ivory);border:1px solid var(--rule)}
+    .billing-label{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+    .billing-text{font-size:15px;line-height:1.85;color:var(--charcoal-mid);font-weight:300;margin-bottom:8px}
+    .billing-note{font-size:13px;font-style:italic;color:var(--warm-gray);line-height:1.7}
+    #retainers{background:var(--ivory);border-top:1px solid var(--rule);padding:100px 60px 120px;position:relative}
+    #retainers::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:1px;height:60px;background:linear-gradient(to bottom,transparent,var(--gold))}
+    .r-eyebrow{text-align:center;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+    .r-title{font-weight:300;font-size:clamp(30px,4vw,48px);text-align:center;color:var(--charcoal);line-height:1.2;margin-bottom:16px}
+    .r-title em{font-style:italic;color:var(--gold)}
+    .r-sub{text-align:center;font-size:15px;font-weight:300;font-style:italic;color:var(--warm-gray);max-width:540px;margin:0 auto 64px;line-height:1.75}
+    .r-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2px;max-width:1200px;margin:0 auto 40px;border:1px solid var(--rule)}
+    .r-card{background:var(--ivory);padding:48px 36px 44px;position:relative;display:flex;flex-direction:column;transition:background 0.3s;border-right:1px solid var(--rule)}
+    .r-card:last-child{border-right:none}
+    .r-card.featured{background:var(--charcoal)}
+    .r-card.insider{background:var(--ivory-dark);border-left:2px solid var(--gold)}
+    .r-card:hover:not(.featured){background:#fff}
+    .c-tier{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;font-weight:300}
+    .r-card.featured .c-tier{color:var(--gold-light)}
+    .c-name{font-size:28px;font-weight:400;color:var(--charcoal);margin-bottom:6px;line-height:1.2}
+    .r-card.featured .c-name{color:var(--ivory)}
+    .c-service{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--warm-gray);margin-bottom:32px;font-weight:300}
+    .r-card.featured .c-service{color:rgba(248,244,238,0.4)}
+    .c-price{display:flex;align-items:baseline;gap:4px;margin-bottom:4px}
+    .c-currency{font-size:18px;font-weight:300;color:var(--gold)}
+    .c-amount{font-size:52px;font-weight:300;color:var(--charcoal);line-height:1}
+    .r-card.featured .c-amount{color:var(--ivory)}
+    .c-period{font-size:11px;color:var(--warm-gray);font-weight:300;letter-spacing:0.05em;margin-bottom:28px}
+    .r-card.featured .c-period{color:rgba(248,244,238,0.4)}
+    .c-divider{width:32px;height:1px;background:var(--rule);margin-bottom:28px}
+    .r-card.featured .c-divider{background:rgba(248,244,238,0.12)}
+    .c-tagline{font-size:13px;font-style:italic;color:var(--warm-gray);font-weight:300;margin-bottom:20px;line-height:1.6}
+    .c-features{list-style:none;flex:1;margin-bottom:36px}
+    .c-features li{font-size:13.5px;font-weight:300;color:var(--charcoal-mid);padding:8px 0;border-bottom:1px solid var(--rule);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+    .r-card.featured .c-features li{color:rgba(248,244,238,0.72);border-bottom-color:rgba(248,244,238,0.08)}
+    .c-features li::before{content:"--";color:var(--gold);font-size:11px;flex-shrink:0;margin-top:3px}
+    .r-card.featured .c-features li::before{color:var(--gold-light)}
+    .c-badge{position:absolute;top:20px;right:20px;font-size:9px;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);padding:4px 10px}
+    .c-btn{display:block;width:100%;padding:15px 24px;font-family:"Cormorant Garamond",serif;font-size:12px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;text-align:center;cursor:pointer;border:1px solid var(--charcoal);background:transparent;color:var(--charcoal);transition:background 0.3s,color 0.3s}
+    .c-btn:hover{background:var(--charcoal);color:var(--ivory)}
+    .r-card.featured .c-btn{border-color:var(--gold);color:var(--gold)}
+    .r-card.featured .c-btn:hover{background:var(--gold);color:var(--charcoal)}
+    .r-card.insider .c-btn{border-color:var(--gold);color:var(--gold)}
+    .r-card.insider .c-btn:hover{background:var(--gold);color:var(--charcoal)}
+    .r-trust{max-width:1200px;margin:0 auto 16px;padding:28px 36px;border:1px solid var(--rule);background:#fff;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:28px}
+    .t-item{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:300;color:var(--warm-gray);letter-spacing:0.05em}
+    .t-item svg{width:16px;height:16px;flex-shrink:0;opacity:0.55}
+    .t-sep{width:1px;height:18px;background:var(--rule)}
+    .r-cards-box{max-width:1200px;margin:0 auto 16px;padding:20px 36px;border:1px solid var(--rule);border-top:none;background:#fff;display:flex;align-items:center;justify-content:center;gap:12px}
+    .r-fine{text-align:center;font-size:12px;font-weight:300;font-style:italic;color:var(--warm-gray);max-width:700px;margin:20px auto 0;line-height:1.8}
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(30,28,25,0.78);z-index:1000;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px)}
+    .modal-overlay.active{display:flex}
+    .modal-box{background:var(--ivory);max-width:520px;width:100%;padding:52px 44px 44px;position:relative;animation:modalIn 0.3s ease}
+    @keyframes modalIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    .m-close{position:absolute;top:20px;right:24px;font-size:22px;cursor:pointer;color:var(--warm-gray);background:none;border:none;transition:color 0.2s}
+    .m-close:hover{color:var(--charcoal)}
+    .m-eyebrow{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+    .m-title{font-size:30px;font-weight:300;color:var(--charcoal);margin-bottom:6px}
+    .m-price{font-size:12px;font-weight:300;color:var(--warm-gray);margin-bottom:32px;font-style:italic}
+    .m-group{margin-bottom:18px}
+    .m-label{display:block;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:7px;font-weight:300}
+    .m-input{width:100%;padding:13px 14px;border:1px solid var(--rule);background:var(--ivory-dark);font-family:"Cormorant Garamond",serif;font-size:15px;font-weight:300;color:var(--charcoal);outline:none;transition:border-color 0.2s}
+    .m-input:focus{border-color:var(--gold)}
+    .m-input::placeholder{color:rgba(122,114,106,0.5)}
+    #stripe-card-element{width:100%;padding:13px 14px;border:1px solid var(--rule);background:var(--ivory-dark);transition:border-color 0.2s}
+    #stripe-card-element.focused{border-color:var(--gold)}
+    .stripe-error{font-size:12px;color:#b94040;margin-top:8px;display:none;font-style:italic}
+    .m-submit{display:block;width:100%;margin-top:28px;padding:16px;font-family:"Cormorant Garamond",serif;font-size:13px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;background:var(--charcoal);color:var(--ivory);border:none;cursor:pointer;transition:background 0.25s}
+    .m-submit:hover{background:#2e2b27}
+    .m-submit:disabled{opacity:0.6;cursor:not-allowed}
+    .m-secure{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:16px;font-size:11px;color:var(--warm-gray);font-weight:300}
+    .m-secure svg{width:13px;height:13px;opacity:0.5}
+    .m-disclaimer{font-size:11px;color:var(--warm-gray);text-align:center;margin-top:14px;line-height:1.7;font-weight:300;font-style:italic}
+    .m-success{text-align:center;padding:20px 0}
+    .s-icon{width:50px;height:50px;margin:0 auto 20px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .s-icon svg{width:20px;height:20px;color:var(--gold)}
+    .s-title{font-size:28px;font-weight:300;color:var(--charcoal);margin-bottom:10px}
+    .s-text{font-size:14px;font-weight:300;font-style:italic;color:var(--warm-gray);line-height:1.75}
+    #contact{background:var(--charcoal);color:var(--ivory)}
+    #contact .section-label{color:var(--gold)}
+    #contact .section-title{color:var(--ivory)}
+    #contact hr.gold-rule{border-color:rgba(201,169,110,0.2)}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .contact-intro{font-size:17px;line-height:1.85;color:rgba(248,244,238,0.7);font-style:italic}
+    .contact-form{display:flex;flex-direction:column;gap:20px}
+    .form-field{display:flex;flex-direction:column;gap:8px}
+    .form-label{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold)}
+    .form-input,.form-textarea{background:rgba(248,244,238,0.05);border:1px solid rgba(201,169,110,0.25);padding:14px 16px;font-family:"Cormorant Garamond",serif;font-size:15px;font-weight:300;color:var(--ivory);outline:none;transition:border-color 0.3s;width:100%}
+    .form-input::placeholder,.form-textarea::placeholder{color:rgba(248,244,238,0.3)}
+    .form-input:focus,.form-textarea:focus{border-color:var(--gold)}
+    .form-textarea{resize:vertical;min-height:120px}
+    .btn-gold{display:inline-block;padding:15px 40px;background:var(--gold);border:none;font-family:"Cormorant Garamond",serif;font-size:12px;font-weight:400;letter-spacing:0.22em;text-transform:uppercase;color:var(--charcoal);cursor:pointer;transition:background 0.3s;align-self:flex-start}
+    .btn-gold:hover{background:var(--gold-light)}
+    footer{background:#141210;padding:36px 60px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(201,169,110,0.15)}
+    .footer-left{font-size:12px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(248,244,238,0.3)}
+    .footer-links{display:flex;gap:32px}
+    .footer-links a{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(248,244,238,0.3);text-decoration:none;transition:color 0.3s}
+    .footer-links a:hover{color:var(--gold)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:768px){nav{padding:18px 24px}.nav-links{display:none}section{padding:70px 24px}#retainers{padding:70px 24px 100px}.three-grid,.contact-grid{grid-template-columns:1fr;gap:40px}.r-cards{grid-template-columns:1fr}.r-card{border-right:none;border-bottom:1px solid var(--rule)}.r-card:last-child{border-bottom:none}.r-trust{flex-direction:column;gap:18px}.t-sep{display:none}footer{flex-direction:column;gap:20px;text-align:center;padding:32px 24px}.modal-box{padding:40px 28px 36px}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="#" class="nav-wordmark">Liora <span>Holdings</span> Inc</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#retainers">Retainers</a></li>
+    <li><a href="#purpose">Our Purpose</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+<section class="hero">
+  <p class="hero-eyebrow">Cheyenne, Wyoming &nbsp;&middot;&nbsp; Incorporated in Wyoming</p>
+  <img src="/logo.png" alt="Liora Holdings Inc" style="width:220px;margin-bottom:32px;opacity:0;animation:fadeUp 1s ease 0.4s forwards;" />
+<h1 class="hero-title" style="display:none;">Liora Holdings Inc</h1>
+
+  <div class="hero-rule"></div>
+  <p class="hero-sub">Business consulting and corporate strategy advisory for purposeful enterprises.</p>
+  <div class="hero-cta"><a href="#about" class="btn-outline">Learn More</a></div>
+</section>
+<section id="about">
+  <div class="section-inner">
+    <p class="section-label">About the Company</p>
+    <h2 class="section-title">Structure that <em>supports</em> growth</h2>
+    <hr class="gold-rule" />
+    <div class="about-body">
+      <p>Liora Holdings Inc is a privately held management company incorporated in the State of Wyoming, with its principal office at 211 W 19th Street, Suite 103-1081A, Cheyenne, WY 82001.</p>
+      <p>As the parent company of the Liora family of businesses, Liora Holdings Inc provides management, strategy, and administrative support to its affiliated operating companies. It also offers business consulting and corporate strategy advisory to outside clients.</p>
+      <p>Consulting services are advisory in nature. Clients are encouraged to seek appropriately licensed professionals for legal and financial matters. All fees are billed in United States Dollars (USD).</p>
+      <div class="vision-blocks">
+        <div class="vision-block">
+          <p class="vision-block-label">Our Vision</p>
+          <p class="vision-block-text">To be a steady, well-run management company that strengthens each business in the Liora family and the clients it serves.</p>
+        </div>
+        <div class="vision-block">
+          <p class="vision-block-label">Our Mission</p>
+          <p class="vision-block-text">To provide clear leadership, sound strategy, and organized administration so each Liora operating company can focus on serving its customers and growing with purpose.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="purpose">
+  <div class="section-inner">
+    <p class="section-label">Our Purpose</p>
+    <h2 class="section-title">The role we <em>serve</em></h2>
+    <hr class="gold-rule" />
+    <div class="three-grid">
+      <div class="grid-item"><p class="grid-num">01</p><h3 class="grid-title">Management &amp; Strategy</h3><p class="grid-body">Liora Holdings Inc sets direction for its affiliated operating companies, with organized oversight, accountability, and defined lines of authority.</p></div>
+      <div class="grid-item"><p class="grid-num">02</p><h3 class="grid-title">Shared Administration</h3><p class="grid-body">Centralized administration and documented inter-company billing under written agreements keep each company's records organized and its books separate.</p></div>
+      <div class="grid-item"><p class="grid-num">03</p><h3 class="grid-title">Continuity &amp; Growth</h3><p class="grid-body">Consistent management practices support the long-term continuity of the Liora companies as the family of businesses grows.</p></div>
+    </div>
+  </div>
+</section>
+<section id="services">
+  <div class="section-inner">
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Consulting services built for <em>lasting results</em></h2>
+    <hr class="gold-rule" />
+    <div class="three-grid">
+      <div class="grid-item"><p class="grid-num">01</p><h3 class="grid-title">Business Consulting</h3><p class="grid-body">Practical consulting for businesses seeking clarity on structure, operations, and growth. We work with clients to identify gaps, refine processes, and build toward sustainable results.</p></div>
+      <div class="grid-item"><p class="grid-num">02</p><h3 class="grid-title">Corporate Strategy</h3><p class="grid-body">High-level strategic advisory for corporate clients navigating structure, governance, and long-term positioning. Engagements are individually scoped and priced in USD.</p></div>
+      <div class="grid-item"><p class="grid-num">03</p><h3 class="grid-title">Structural Advisory</h3><p class="grid-body">Guidance on corporate architecture, entity relationships, and governance frameworks for businesses building for the long term.</p></div>
+    </div>
+    <div class="billing-box">
+      <p class="billing-label">Service &amp; Billing Policies</p>
+      <p class="billing-text">All consulting engagements are scoped and billed individually in <strong>United States Dollars (USD)</strong>. Refunds are available for services not yet commenced. Partially completed engagements are refunded on a prorated basis. Completed deliverables are non-refundable. Cancellations must be submitted in writing.</p>
+      <p class="billing-note">Liora Holdings Inc does not provide licensed legal or financial advice. Consulting services are advisory in nature.</p>
+    </div>
+  </div>
+</section>
+<section id="retainers">
+  <p class="r-eyebrow">Retainer Engagements</p>
+  <h2 class="r-title">Advisory structured for <em>lasting results</em></h2>
+  <p class="r-sub">Monthly retainer engagements billed automatically in USD. Cancel anytime in writing. All services are advisory in nature.</p>
+  <div class="r-cards">
+    <div class="r-card">
+      <p class="c-tier">Tier 01</p><h3 class="c-name">Foundation Retainer</h3><p class="c-service">Business Consulting</p>
+      <div class="c-price"><span class="c-currency">$</span><span class="c-amount">1,500</span></div>
+      <p class="c-period">per month &middot; auto-renews &middot; cancel anytime</p>
+      <div class="c-divider"></div>
+      <ul class="c-features">
+        <li>Operational clarity and process refinement</li>
+        <li>Monthly strategy session (60 min)</li>
+        <li>Gap analysis and growth roadmap</li>
+        <li>Email support between sessions</li>
+        <li>Billed monthly in USD via Stripe</li>
+      </ul>
+      <button class="c-btn" onclick="window.openModal('Foundation Retainer','Business Consulting','$1,500/month','price_1TLRpnKBOsyXmZz7oqfUWc7I')">Begin Engagement</button>
+    </div>
+    <div class="r-card featured">
+      <p class="c-tier">Tier 02</p><h3 class="c-name">Strategy Retainer</h3><p class="c-service">Corporate Strategy</p>
+      <div class="c-price"><span class="c-currency">$</span><span class="c-amount">3,500</span></div>
+      <p class="c-period">per month &middot; auto-renews &middot; cancel anytime</p>
+      <div class="c-divider"></div>
+      <ul class="c-features">
+        <li>High-level strategic advisory and positioning</li>
+        <li>Bi-weekly sessions (60 min each)</li>
+        <li>Governance and structural guidance</li>
+        <li>Long-term corporate positioning support</li>
+        <li>Priority email and async advisory</li>
+        <li>Billed monthly in USD via Stripe</li>
+      </ul>
+      <button class="c-btn" onclick="window.openModal('Strategy Retainer','Corporate Strategy','$3,500/month','price_1TLRpmKBOsyXmZz7xyPiZg7p')">Begin Engagement</button>
+    </div>
+    <div class="r-card">
+      <p class="c-tier">Tier 03</p><h3 class="c-name">Advisory Retainer</h3><p class="c-service">Structural Advisory</p>
+      <div class="c-price"><span class="c-currency">$</span><span class="c-amount">6,500</span></div>
+      <p class="c-period">per month &middot; auto-renews &middot; cancel anytime</p>
+      <div class="c-divider"></div>
+      <ul class="c-features">
+        <li>Full corporate architecture advisory</li>
+        <li>Entity relationship and governance frameworks</li>
+        <li>Weekly sessions (90 min each)</li>
+        <li>Dedicated engagement scope and deliverables</li>
+        <li>Unlimited async support</li>
+        <li>Billed monthly in USD via Stripe</li>
+      </ul>
+      <button class="c-btn" onclick="window.openModal('Advisory Retainer','Structural Advisory','$6,500/month','price_1TLRpmKBOsyXmZz7UfFAZIgv')">Begin Engagement</button>
+    </div>
+  </div>
+  <div class="r-trust">
+    <div class="t-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Payments secured by Stripe</div>
+    <div class="t-sep"></div>
+    <div class="t-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>PCI DSS Compliant</div>
+    <div class="t-sep"></div>
+    <div class="t-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Auto-renews monthly</div>
+    <div class="t-sep"></div>
+    <div class="t-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>All fees billed in USD</div>
+  </div>
+  <div class="r-cards-box">
+    <span style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--warm-gray);margin-right:8px;">Accepted Cards</span>
+    <svg width="42" height="28" viewBox="0 0 42 28" style="border:1px solid #e0e0e0;border-radius:4px;background:#fff;padding:3px 5px;"><text x="3" y="19" font-family="Arial" font-weight="900" font-size="13" fill="#1a1f71">VISA</text></svg>
+    <svg width="42" height="28" viewBox="0 0 42 28" style="border:1px solid #e0e0e0;border-radius:4px;background:#fff;"><circle cx="16" cy="14" r="9" fill="#EB001B"/><circle cx="26" cy="14" r="9" fill="#F79E1B"/><path d="M21 7.5a9 9 0 0 1 0 13A9 9 0 0 1 21 7.5z" fill="#FF5F00"/></svg>
+    <svg width="42" height="28" viewBox="0 0 42 28" style="border:1px solid #e0e0e0;border-radius:4px;background:#016FD0;padding:3px 5px;"><text x="3" y="19" font-family="Arial" font-weight="bold" font-size="10" fill="#fff">AMEX</text></svg>
+    <svg width="42" height="28" viewBox="0 0 42 28" style="border:1px solid #e0e0e0;border-radius:4px;background:#fff;padding:3px 5px;"><text x="2" y="12" font-family="Arial" font-weight="bold" font-size="7" fill="#231F20">DISCOVER</text><circle cx="32" cy="14" r="7" fill="#F76F20"/></svg>
+  </div>
+  <p class="r-fine">All consulting engagements are advisory in nature. Liora Holdings Inc does not provide licensed legal or financial advice. Refunds available for services not yet commenced. Partially completed engagements refunded on a prorated basis. Completed deliverables are non-refundable. Cancel in writing to: <a href="mailto:info@lioraholdingsinc.com" style="color:var(--gold);text-decoration:none;">info@lioraholdingsinc.com</a></p>
+
+</section>
+<section id="contact">
+  <div class="section-inner">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Get in <em>touch</em></h2>
+    <hr class="gold-rule" />
+    <div class="contact-grid">
+      <div>
+        <p class="contact-intro">Liora Holdings Inc welcomes inquiries from prospective clients, professional advisors, and partners.</p>
+        <div style="margin-top:40px;font-size:14px;color:rgba(248,244,238,0.5);line-height:2;">
+          <p style="color:var(--gold);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:12px;">Principal Office</p>
+          <p>211 W 19th Street, Suite 103-1081A</p>
+          <p>Cheyenne, WY 82001</p>
+         <p style="margin-top:16px;"><a href="mailto:info@lioraholdingsinc.com" style="color:rgba(248,244,238,0.5);text-decoration:none;">info@lioraholdingsinc.com</a></p>
+
+          <p>(833) 546-7226</p>
+        </div>
+        <div style="margin-top:24px;font-size:12px;color:rgba(248,244,238,0.35);line-height:1.7;font-style:italic;">Liora Holdings Inc is a privately held management company. It does not provide legal, financial, or investment advice.</div>
+      </div>
+      <div class="contact-form">
+        <div class="form-field"><label class="form-label">Full Name</label><input type="text" class="form-input" placeholder="Your name" /></div>
+        <div class="form-field"><label class="form-label">Organization</label><input type="text" class="form-input" placeholder="Company or firm" /></div>
+        <div class="form-field"><label class="form-label">Email Address</label><input type="text" class="form-input" placeholder="your email address" /></div>
+        <div class="form-field"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Purpose of inquiry..."></textarea></div>
+        <button class="btn-gold" onclick="window.sendInquiry()">Send Inquiry</button>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <span class="footer-left">&copy; 2026 Liora Holdings Inc &middot; All Rights Reserved</span>
+  <nav class="footer-links"><a href="/privacy.html">Privacy Policy</a><a href="#contact">Contact</a></nav>
+</footer>
+<div class="modal-overlay" id="checkoutModal">
+  <div class="modal-box">
+    <button class="m-close" onclick="window.closeModal()">&times;</button>
+    <div id="formView">
+      <p class="m-eyebrow" id="m-eyebrow">Retainer Engagement</p>
+      <h3 class="m-title" id="m-title">Foundation Retainer</h3>
+      <p class="m-price" id="m-price">$1,500 / month</p>
+      <div class="m-group"><label class="m-label">Full Name</label><input class="m-input" type="text" id="client-name" placeholder="Your full legal name" /></div>
+      <div class="m-group"><label class="m-label">Organization</label><input class="m-input" type="text" id="client-org" placeholder="Company or organization" /></div>
+      <div class="m-group"><label class="m-label">Email Address</label><input class="m-input" type="text" id="client-email" placeholder="your email address" /></div>
+      <div class="m-group"><label class="m-label">Card Details</label><div id="stripe-card-element"></div><p class="stripe-error" id="card-error"></p></div>
+      <button class="m-submit" id="submit-btn" onclick="window.handleSubmit()"><span id="submit-label">Confirm &amp; Begin Retainer</span></button>
+      <div class="m-secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Secured by Stripe &middot; PCI DSS Compliant</div>
+      <p class="m-disclaimer">By confirming, you authorize Liora Holdings Inc to charge your card monthly until cancelled in writing.</p>
+    </div>
+    <div id="successView" style="display:none;">
+      <div class="m-success">
+        <div class="s-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3 class="s-title">Engagement Confirmed</h3>
+        <p class="s-text">Thank you. Your retainer is active. A member of our team will be in touch within one business day.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<script>window._stripeKey = "pk_live_51TKrF7KBOsyXmZz73jrEpQ9YmTiwmP1mLJNDWxt0wVmLXBOLsY5qP9jswqKKheUeulI8WQvNMZzBVN254xD2Jdqi001clUrZAz";</script>
+<script src="/app.js"></script>
+</body>
+</html>
